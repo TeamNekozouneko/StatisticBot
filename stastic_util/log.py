@@ -11,7 +11,7 @@ def info(txt: str):
         with open(f"log/{dt.strftime('%m-%d')}.log", "w", encoding="utf-8", newline="\n") as log:
             log.write(tx)
     else:
-        with open(f"log/{dt.strftime('%m-%d')}.log", "a", newline="\n") as log:
+        with open(f"log/{dt.strftime('%m-%d')}.log", "a", encoding="utf-8", newline="\n") as log:
             log.write("\n"+tx)
 
     print(tx)
@@ -27,7 +27,7 @@ def err(txt: str):
         with open(f"log/{dt.strftime('%m-%d')}.log", "w", encoding="utf-8", newline="\n") as log:
             log.write(f"[{dt.strftime('%m/%d %H:%M:%S')} ERR] {txt}")
     else:
-        with open(f"log/{dt.strftime('%m-%d')}.log", "a", newline="\n") as log:
+        with open(f"log/{dt.strftime('%m-%d')}.log", "a", encoding="utf-8", newline="\n") as log:
             log.write(f"\n[{dt.strftime('%m/%d %H:%M:%S')} ERR] {txt}")
 
     print(tx)
@@ -43,7 +43,7 @@ def warn(txt: str):
         with open(f"log/{dt.strftime('%m-%d')}.log", "w", encoding="utf-8", newline="\n") as log:
             log.write(f"[{dt.strftime('%m/%d %H:%M:%S')} WARN] {txt}")
     else:
-        with open(f"log/{dt.strftime('%m-%d')}.log", "a", newline="\n") as log:
+        with open(f"log/{dt.strftime('%m-%d')}.log", "a", encoding="utf-8", newline="\n") as log:
             log.write(f"\n[{dt.strftime('%m/%d %H:%M:%S')} WARN] {txt}")
 
     print(tx)
