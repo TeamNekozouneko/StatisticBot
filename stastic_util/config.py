@@ -11,7 +11,7 @@ loadedConfig = None
 def reloadConfig():
     return loadConfig()
 
-def loadConfig():
+def loadConfig() -> dict:
     with open("config.json", "r") as conf:
         loadedConfig = json.load(conf)
     return loadedConfig
