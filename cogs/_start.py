@@ -5,7 +5,7 @@ sys.path.append("../")
 
 from discord.ext import commands
 
-from statistic_util import *
+from statistic_util import log, console, config
 
 class _start(commands.Cog):
     

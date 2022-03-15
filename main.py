@@ -1,14 +1,13 @@
 import discord, os, sys, platform
 
 from statistic_util import *
-import statistic_util
 
 print("ボットを起動中")
 print(f"Python: {sys.version} オペレーティングシステム: {platform.system()} {platform.version()}")
 
 bot = discord.Bot()
 
-if not os.path.exists("confing.json"):
+if not os.path.exists("config.json"):
     log.err("config.jsonが見つかりませんでした。生成しています...")
     config.saveDefaultConfig()
     log.warn("生成しました。config.jsonを確認してください。")
@@ -16,6 +15,8 @@ if not os.path.exists("confing.json"):
     sys.exit()
 
 conf = config.loadConfig()
+
+bot.load_extension("cogs._start")
 
 try:
     bot.run(conf["token"])

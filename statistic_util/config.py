@@ -1,22 +1,28 @@
 import json
 
-defaultConfig = {
-    "token": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+class config:
+    
 
-    "srvId": "000000000000000"
-}
+    defaultConfig = {
+        "token": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 
-loadedConfig = None
+        "srvId": "000000000000000"
+    }
 
-def reloadConfig():
-    return loadConfig()
+    loadedConfig = None
 
-def loadConfig() -> dict:
-    with open("config.json", "r") as conf:
-        loadedConfig = json.load(conf)
-    return loadedConfig
+    @classmethod
+    def reloadConfig(self):
+        return self.loadConfig()
 
-def saveDefaultConfig():
-    with open("config.json", "w") as conf:
-        json.dump(defaultConfig, conf)
-    return
+    @classmethod
+    def loadConfig(self) -> dict:
+        with open("config.json", "r") as conf:
+            loadedConfig = json.load(conf)
+        return loadedConfig
+
+    @classmethod
+    def saveDefaultConfig(self):
+        with open("config.json", "w") as conf:
+            json.dump(self.defaultConfig, conf)
+        return

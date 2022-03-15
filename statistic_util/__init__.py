@@ -1,4 +1,6 @@
-from . import config, log, console
+from .config import config
+from .console import console
+from .log import log
 
 __author__ = "Taitaitatata (TEAM Nekozouneko)"
 __copyright__ = "Copyright 2022 TEAM Nekozouneko"
