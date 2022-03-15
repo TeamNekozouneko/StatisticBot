@@ -1,4 +1,4 @@
-# Stastic Bot
+# Statistic Bot
 > *日本語説明は下です。*  
 > Translated by DeepL translate tool.
 
@@ -11,7 +11,7 @@ The number of messages can be obtained and ranked, and special offers can be pro
 * [ ] Rewards
 * [ ] API
 
-# Stastic Bot - 日本語
+# Statistic Bot - 日本語
 Discordの統計ボットです。  
 メッセージ数を取得してランキングにしたり、特典を用意したりすることができます。
 
