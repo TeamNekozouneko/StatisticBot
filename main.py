@@ -1,7 +1,7 @@
 import discord, os, sys, platform
 
-from stastic_util import *
-import stastic_util
+from statistic_util import *
+import statistic_util
 
 print("ボットを起動中")
 print(f"Python: {sys.version} オペレーティングシステム: {platform.system()} {platform.version()}")
