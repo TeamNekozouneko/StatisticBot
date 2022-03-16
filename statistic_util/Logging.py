@@ -95,3 +95,17 @@ class log:
                 log.write(f"\n[{dt.strftime('%m/%d %H:%M:%S')} WARN] {txt}")
 
         print(tx)
+    
+    @classmethod
+    def append_log(self, txt: str):
+        dt = datetime.datetime.now()
+
+        if (not os.path.exists("log/")):
+            os.mkdir("log")
+
+        if (not os.path.exists(f"log/{dt.strftime('%m-%d')}.log")):
+            with open(f"log/{dt.strftime('%m-%d')}.log", "w", encoding="utf-8", newline="\n") as log:
+                log.write("\n"+txt)
+        else:
+            with open(f"log/{dt.strftime('%m-%d')}.log", "a", encoding="utf-8", newline="\n") as log:
+                log.write("\n"+txt)
