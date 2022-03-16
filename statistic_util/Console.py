@@ -1,12 +1,12 @@
 """
 ## コンソール機能()
 """
-
 import aioconsole, sys
 
-from .log import log
+from .Logging import log
 
 class console:
+    """コンソールの機能です(2)"""
     pattern = [
         {
             "aliases": ["?"],
@@ -39,4 +39,4 @@ class console:
                             log.info(out)
                     if (not pt["cmd"] is None):
                         pt["cmd"]()
-            cs = await aioconsole.ainput("~ $ ")
+            cs = await aioconsole.ainput("~ $ ")        

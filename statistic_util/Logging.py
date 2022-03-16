@@ -1,5 +1,15 @@
 import datetime, os
 
+class LogLevel:
+        INFO: str = "_info"
+        WARN: str = "_warn"
+        ERR: str = "_error"
+
+        # aliases
+        ERROR: str = "_error"
+        WARNING: str = "_warn"
+        INFORMATION: str = "_info"
+
 class log:
     """
     ## ログ機能群
@@ -13,6 +23,18 @@ class log:
     
     # [xx/xx 00:00:00 INFO] Example text
     """
+
+    @classmethod
+    def log(self, level: str, txt: str):
+        """info()とかerr()とかwarn()使いたくないならこれ"""
+        if (level == LogLevel.ERR or level == LogLevel.ERROR):
+            return self.err(txt)
+        elif (level == LogLevel.INFO or level == LogLevel.INFORMATION):
+            return self.info(txt)
+        elif (level == LogLevel.WARN or level == LogLevel.WARNING):
+            return self.warn(txt)
+        else:
+            raise NameError("そんなログレベルないぞ")
 
     @classmethod
     def info(self, txt: str):
