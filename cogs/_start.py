@@ -15,6 +15,8 @@ class _start(commands.Cog):
     
     @commands.Cog.listener()
     async def on_connect(self):
+        log.append_log("===================== Starting Session =====================")
+
         log.info("Discordに接続中...")
     
     @commands.Cog.listener()
