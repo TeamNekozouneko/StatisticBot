@@ -32,11 +32,17 @@ class console:
         cs = await aioconsole.ainput("~ $ ")
 
         while True:
+            runned = False
+            log.info(f"コンソールコマンド \"{cs}\" を実行しました。")
             for pt in self.pattern:
                 if (pt["name"] == cs) or (cs in pt["aliases"]):
+                    runned = True
                     if (not pt["output"] is None):
                         for out in pt["output"]:
                             log.info(out)
                     if (not pt["cmd"] is None):
                         pt["cmd"]()
+            if (not runned):
+                log.info(f"\"{cs}\" というコマンドは存在していません。ヘルプを参照してください。")
+
             cs = await aioconsole.ainput("~ $ ")        
