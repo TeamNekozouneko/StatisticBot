@@ -1,6 +1,8 @@
-import discord
+import discord, sys
 
 from discord.ext import commands
+
+sys.path.append("../")
 
 class MessageListener(commands.Cog):
 
