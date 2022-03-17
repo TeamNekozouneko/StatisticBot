@@ -1,4 +1,5 @@
 import sqlite3, os
+from typing import Iterable
 
 class manager:
 
@@ -28,7 +29,7 @@ class manager:
         self.dbc.execute(f"CREATE TABLE IF NOT EXISTS {table}({args})")
         self.db.commit()
     
-    def insert(self, table: str, args: tuple):
+    def insert(self, table: str, args):
         """
         SQLite3でテーブルに内容を入れ込みます。
 
@@ -39,11 +40,25 @@ class manager:
         dbMan = manager()
         dbMan.insert('Aoi', ("あいうえお", 12345))
         """
+        if (isinstance(args, tuple)):
+            q = ""
+            for i in range(len(args)):
+                q = q+"?,"
+            q = q.strip(",")
+        else:
+            q = "?"
+            args: Iterable = (args,)
 
-        q = ""
-        for i in range(len(args)):
-            q = q+"?,"
-        q.strip(",")
+        print(q)
 
-        self.dbc.execute(f"INSERT INTO {table} VALUES({q})", args)
+        self.dbc.execute(f"INSERT INTO {table} VALUES ({q})", args)
         self.db.commit()
+    
+    def get_contents(self, table: str):
+        """
+        SQLite3でテーブル内の内容を取得します。
+        """
+
+        self.dbc.execute(f"SELECT * FROM {table}")
+
+        return self.dbc.fetchall()
