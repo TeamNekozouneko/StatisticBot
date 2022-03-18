@@ -4,11 +4,34 @@ from discord.ext import commands
 
 sys.path.append("../")
 
-class MessageListener(commands.Cog):
+from statistic_util import dblib, config
+
+class msgListener(commands.Cog):
 
     def __init__(self, bot: discord.Bot):
-        pass
+        self.bot = bot
+        self._last_member = None
+
+        self.db = dblib.manager()
+        self.cfg = config.loadConfig()
 
     @commands.Cog.listener()
-    async def on_message(self):
-        pass
+    async def on_message(self, message: discord.Message):
+        if (not self.cfg["msg"]["bot"]):
+            if (message.author.bot):
+                return
+        
+        tableName = f"{self.cfg['database']['prefix']}message"
+
+        self.db.create_table(tableName, "author_id int, message_content str, message_id int")
+
+        self.db.insert(tableName, (message.author.id, message.content, message.id))
+    
+    @commands.Cog.listener()
+    async def on_message_delete(self, message: discord.Message):
+        print("delete Process")
+        tableName = f"{self.cfg['database']['prefix']}message"
+        self.db.execute(f"DELETE FROM {tableName} WHERE author_id == {message.author.id} AND message_id == {message.id}")
+
+def setup(bot: discord.Bot):
+    bot.add_cog(msgListener(bot))
