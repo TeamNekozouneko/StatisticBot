@@ -6,7 +6,7 @@ The Discord statistics bot.
 The number of messages can be obtained and ranked, and special offers can be provided.
 
 ## Features
-* [ ] Count messages
+* [x] Count messages
 * [ ] Ranking
 * [ ] Rewards
 * [ ] API
@@ -16,7 +16,7 @@ Discordの統計ボットです。
 メッセージ数を取得してランキングにしたり、特典を用意したりすることができます。
 
 ## 機能
-* [ ] メッセージをカウント
+* [x] メッセージをカウント
 * [ ] ランキング
 * [ ] 特典機能
 * [ ] API
