@@ -6,7 +6,20 @@ class config:
     defaultConfig = {
         "token": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 
-        "srvId": "000000000000000"
+        "msg": {
+            "bot": False,
+            "blackList": {
+                "id": [],
+                "startsWith": [],
+                "endWith": [],
+                "in": [],
+                "name": []
+            }
+        },
+
+        "database": {
+            "prefix": "StatisticBot_"
+        }
     }
 
     # 読み込んだ設定ファイルの内容
@@ -29,5 +42,5 @@ class config:
     def saveDefaultConfig(self, fp: str = "config.json"):
         """設定ファイルをリセットします。"""
         with open(fp, "w") as conf:
-            json.dump(self.defaultConfig, conf)
+            json.dump(self.defaultConfig, conf, indent=4)
         return
