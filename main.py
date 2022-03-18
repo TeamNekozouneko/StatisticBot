@@ -1,11 +1,12 @@
 import discord, os, sys, platform
 
-from statistic_util import *
+from statistic_util import log, config, dblib
 
 print("ボットを起動中")
 print(f"Python: {sys.version} オペレーティングシステム: {platform.system()} {platform.version()}")
 
 bot = discord.Bot()
+
 
 if not os.path.exists("config.json"):
     log.err("config.jsonが見つかりませんでした。生成しています...")
