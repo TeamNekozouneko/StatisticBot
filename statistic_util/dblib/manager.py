@@ -55,8 +55,6 @@ class manager:
             q = "?"
             args = (args,)
 
-        print(q)
-
         self.dbc.execute(f"INSERT INTO {table} VALUES ({q})", args)
         self.db.commit()
     
@@ -142,3 +140,12 @@ class manager:
             self.dbc.execute(cmd, args)
         
         self.db.commit()
+    
+    def get_cursor(self):
+        return self.dbc
+    
+    def get_database(self):
+        return self.db
+    
+    def get_database_fp(self):
+        return self.dbfp
