@@ -26,6 +26,8 @@ bot.load_extension("cogs._start")
 
 bot.load_extension("cogs.listener")
 
+bot.load_extension("cogs.dashboard")
+
 try:
     bot.run(conf["token"])
 except discord.errors.LoginFailure:
