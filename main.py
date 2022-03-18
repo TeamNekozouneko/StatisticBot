@@ -1,12 +1,17 @@
 import discord, os, sys, platform
 
-from statistic_util import log, config, dblib
+from statistic_util import log, config
 
 print("ボットを起動中")
 print(f"Python: {sys.version} オペレーティングシステム: {platform.system()} {platform.version()}")
 
-bot = discord.Bot()
+intent = discord.Intents.default()
 
+intent.messages=True
+intent.message_content=True
+intent.guild_messages=True
+
+bot = discord.Bot(intents=intent)
 
 if not os.path.exists("config.json"):
     log.err("config.jsonが見つかりませんでした。生成しています...")
@@ -18,6 +23,8 @@ if not os.path.exists("config.json"):
 conf = config.loadConfig()
 
 bot.load_extension("cogs._start")
+
+bot.load_extension("cogs.listener")
 
 try:
     bot.run(conf["token"])
