@@ -149,3 +149,6 @@ class manager:
     
     def get_database_fp(self):
         return self.dbfp
+    
+    def force_commit(self):
+        self.db.commit()
