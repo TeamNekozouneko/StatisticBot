@@ -29,13 +29,21 @@ class msgListener(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
+        if (not self.cfg["msg"]["bot"]):
+            if (message.author.bot):
+                return
+        
         tableName = f"{self.cfg['database']['prefix']}message"
-        self.db.execute(f"DELETE FROM {tableName} WHERE author_id == {message.author.id} AND message_id == {message.id}")
+        self.db.execute(f"DELETE FROM {tableName} WHERE message_id == {message.id}")
     
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message):
+        if (not self.cfg["msg"]["bot"]):
+            if (before.author.bot or after.author.bot):
+                return
+        
         tableName = f"{self.cfg['database']['prefix']}message"
-        self.db.execute(f"UPDATE {tableName} SET message_content = \"{after.content}\" WHERE author_id == {after.author.id} AND message_id == {after.id}")
+        self.db.execute(f'UPDATE {tableName} SET message_content = \"{after.content}\" WHERE message_id == {after.id}')
 
 def setup(bot: discord.Bot):
     bot.add_cog(msgListener(bot))
