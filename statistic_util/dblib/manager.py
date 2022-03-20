@@ -152,3 +152,7 @@ class manager:
     
     def force_commit(self):
         self.db.commit()
+    
+    def close(self):
+        self.dbc.close()
+        self.db.close()
