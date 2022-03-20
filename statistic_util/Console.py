@@ -1,7 +1,7 @@
 """
 ## コンソール機能()
 """
-import aioconsole, sys
+import aioconsole, sys, discord, traceback
 
 from . import dblib, config
 
@@ -12,51 +12,40 @@ class console:
     """コンソールの機能です(2)"""
     
     @classmethod
-    async def start(self):
+    async def start(self, bot: discord.Bot):
         """コンソールを起動します。"""
         db = dblib.manager()
         cfg = config.loadConfig()
 
         log.info("コンソールを起動しました。")
-        cs = await aioconsole.ainput("~ $ ")
+        cmd = await aioconsole.ainput("BOT> ")
 
         while True:
-            pattern = [
-                {
-                    "aliases": ["?"],
-                    "output": [
-                        "help - コマンドのヘルプを表示",
-                        "stop - ボットを停止します。"
-                        ],
-                    "cmd": None,
-                    "name": "help"
-                },
-                {
-                    "aliases": ["exit", "alt+f4"],
-                    "cmd": sys.exit,
-                    "output": None,
-                    "name": "stop"
-                },
-                {
-                    "aliases": ["stats"],
-                    "cmd": None,
-                    "output": [
-                        f"ALL MESSAGES: "+ str(len(db.get_contents(f'{cfg["database"]["prefix"]}message')))
-                    ],
-                    "name": "status"
-                }
-            ]
-            runned = False
-            log.info(f"コンソールコマンド \"{cs}\" を実行しました。")
-            for pt in pattern:
-                if (pt["name"] == cs) or (cs in pt["aliases"]):
-                    runned = True
-                    if (not pt["output"] is None):
-                        for out in pt["output"]:
-                            log.info(out)
-                    if (not pt["cmd"] is None):
-                        pt["cmd"]()
-            if (not runned):
-                log.info(f"\"{cs}\" というコマンドは存在していません。ヘルプを参照してください。")
+            log.info("コンソールコマンド\"{0}\"が使用されました。".format(cmd))
 
-            cs = await aioconsole.ainput("~ $ ")        
+            try:
+                if cmd == "help" or cmd == "?":
+                    log.info("Console commands:")
+                    log.info("help - Command help")
+                    log.info("version - Bot version")
+                    log.info("status - Bot status")
+                elif cmd == "version" or cmd == "ver":
+                    log.info("StatisticBot 1.0.0")
+                elif cmd == "status" or cmd == "stats":
+                    log.info("Display name: {0} ({1})".format(str(bot.user), bot.user.id))
+                    log.info("2FA: {0}".format(bot.user.mfa_enabled))
+                    log.info("")
+                    log.info("Messages: {0} messages saved.".format(len(db.get_contents("StatisticBot_message"))))
+                    log.info("Servers: {0} servers joined.".format(len(bot.guilds)))
+                elif cmd == "stop" or cmd == "close" or cmd == "exit":
+                    log.info("データベースのコミット中...")
+                    db.force_commit()
+                    log.info("データベースをクローズ中...")
+                    db.close()
+                    log.info("ボットを停止中...")
+                    await bot.close()
+            except Exception as e:
+                log.err("コマンドの実行中に例外が発生しました。")
+                log.err(traceback.format_exception_only(type(e), e)[0].rstrip("\n"))
+            
+            cmd = await aioconsole.ainput("BOT> ")
