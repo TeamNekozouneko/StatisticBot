@@ -14,7 +14,7 @@ class _start(commands.Cog):
     
     @commands.Cog.listener()
     async def on_connect(self):
-        log.append_log(f"===================== Started Session ({datetime.datetime.now().strftime('%m/%d %H:%M:%S')}) =====================")
+        log.append_log(f"===================== Started session ({datetime.datetime.now().strftime('%m/%d %H:%M:%S')}) =====================")
 
         log.info("Discordに接続中...")
     
@@ -27,7 +27,7 @@ class _start(commands.Cog):
         log.info("読み込みました。")
 
         log.info("コンソールを起動しています...")
-        console_task = asyncio.create_task(console.start())
+        console_task = asyncio.create_task(console.start(self.bot))
 
 def setup(bot: discord.Bot):
     bot.add_cog(_start(bot))
