@@ -23,9 +23,9 @@ class msgListener(commands.Cog):
         
         tableName = f"{self.cfg['database']['prefix']}message"
 
-        self.db.create_table(tableName, "author_id int, message_content str, message_id int, guild_id int")
+        self.db.create_table(tableName, "author_id int, message_id int, guild_id int")
 
-        self.db.insert(tableName, (message.author.id, message.content, message.id, message.guild.id))
+        self.db.insert(tableName, (message.author.id, message.id, message.guild.id))
     
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
@@ -35,15 +35,6 @@ class msgListener(commands.Cog):
         
         tableName = f"{self.cfg['database']['prefix']}message"
         self.db.execute(f"DELETE FROM {tableName} WHERE message_id == {message.id}")
-    
-    @commands.Cog.listener()
-    async def on_message_edit(self, before: discord.Message, after: discord.Message):
-        if (not self.cfg["msg"]["bot"]):
-            if (before.author.bot or after.author.bot):
-                return
-        
-        tableName = f"{self.cfg['database']['prefix']}message"
-        self.db.execute(f'UPDATE {tableName} SET message_content = \"{after.content}\" WHERE message_id == {after.id}')
 
 def setup(bot: discord.Bot):
     bot.add_cog(msgListener(bot))
