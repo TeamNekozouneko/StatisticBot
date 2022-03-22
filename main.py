@@ -22,13 +22,17 @@ if not os.path.exists("config.json"):
 
 conf = config.loadConfig()
 
-bot.load_extension("cogs._start")
-
-bot.load_extension("cogs.listener")
-
-bot.load_extension("cogs.dashboard")
+for loadCogs in os.listdir("cogs/"):
+    loadf = os.path.splitext(loadCogs)
+    if loadf[1] == ".py":
+        log.info("{0}を読み込み中".format(loadf[0]+loadf[1]))
+        try:
+            bot.load_extension("cogs."+loadf[0])
+        except:
+            log.warn("{0}は無効なコグファイルです。".format(loadf[0]+loadf[1]))
+            continue
 
 try:
-    bot.run(conf["token"])
+    bot.run(conf["token"])    
 except discord.errors.LoginFailure:
     log.err("トークンが無効です。config.jsonを確認してください。")
