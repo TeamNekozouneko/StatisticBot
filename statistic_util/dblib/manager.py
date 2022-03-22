@@ -58,7 +58,7 @@ class manager:
         self.dbc.execute(f"INSERT INTO {table} VALUES ({q})", args)
         self.db.commit()
     
-    def get_contents(self, table: str):
+    def get_contents(self, table: str, searchCmd: str = None):
         """
         SQLite3でテーブル内の内容を取得します。
         
@@ -70,8 +70,10 @@ class manager:
         print(db.get_contents('aoi'))
         # [('あいうえお', 12345)]
         """
-
-        self.dbc.execute(f"SELECT * FROM {table}")
+        if searchCmd is None:
+            self.dbc.execute(f"SELECT * FROM {table}")
+        else:
+            self.dbc.execute(f"SELECT * FROM {table} WHERE {searchCmd}")
 
         return self.dbc.fetchall()
     
