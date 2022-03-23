@@ -14,7 +14,7 @@ class _start(commands.Cog):
     
     @commands.Cog.listener()
     async def on_connect(self):
-        log.append_log(f"===================== Started session ({datetime.datetime.now().strftime('%m/%d %H:%M:%S')}) =====================")
+        log.append_log(f"===================== Started session ({datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')}) =====================")
 
         log.info("Discordに接続中...")
     
