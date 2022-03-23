@@ -32,7 +32,7 @@ class Dashboard(commands.Cog):
                     i = i + [msg]
         
             embed.add_field(name="メッセージ件数", value=f"{'{:,}'.format(len(i))}/{'{:,}'.format(len(l))}件")
-        except TypeError as e:
+        except:
             embed.add_field(name="メッセージ件数", value="取得できませんでした。")
 
         try:
