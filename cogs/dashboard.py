@@ -28,12 +28,12 @@ class Dashboard(commands.Cog):
         
             i = []
             for msg in self.db.get_contents(f"{self.cfg['database']['prefix']}message", f"author_id = {ctx.author.id} AND guild_id = {ctx.author.guild.id}"):
-                if (msg[0] == ctx.author.id and msg[3] == ctx.guild.id):
+                if (msg[0] == ctx.author.id and msg[2] == ctx.guild.id):
                     i = i + [msg]
         
             embed.add_field(name="メッセージ件数", value=f"{'{:,}'.format(len(i))}/{'{:,}'.format(len(l))}件")
-        except:
-            pass
+        except TypeError as e:
+            embed.add_field(name="メッセージ件数", value="取得できませんでした。")
 
         try:
             s = []
@@ -47,7 +47,7 @@ class Dashboard(commands.Cog):
 
             embed.add_field(name="一番メッセージを送信するサーバー", value=f"{g.name} ({'{:,}'.format(guild_message_count)})")
         except:
-            pass
+            embed.add_field(name="一番メッセージを送信するサーバー", value="取得できませんでした。")
 
         await ctx.edit(embed=embed)
 
