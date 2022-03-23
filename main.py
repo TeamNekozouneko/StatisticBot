@@ -1,4 +1,4 @@
-import discord, os, sys, platform
+import discord, os, sys, platform, traceback
 
 from statistic_util import log, config
 
@@ -28,8 +28,9 @@ for loadCogs in os.listdir("cogs/"):
         log.info("{0}を読み込み中".format(loadf[0]+loadf[1]))
         try:
             bot.load_extension("cogs."+loadf[0])
-        except:
+        except Exception as e:
             log.warn("{0}は無効なコグファイルです。".format(loadf[0]+loadf[1]))
+            log.err(traceback.format_exception_only(type(e), e)[0].rstrip("\n"))
             continue
 
 try:
