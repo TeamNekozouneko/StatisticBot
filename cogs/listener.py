@@ -17,22 +17,44 @@ class msgListener(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        if (not self.cfg["msg"]["bot"]):
+        if not self.cfg["msg"]["bot"]:
             if (message.author.bot):
                 return
-        
+        black = self.cfg["msg"]["blackList"]
+
+        if message.author.id in black["id"]:
+            return
+        for blSt in black["startsWith"]:
+            if message.author.name.startswith(blSt):
+                return
+        if message.author.name in black["in"]:
+            return
+        if message.author.name in black["name"]:
+            return
+
         tableName = f"{self.cfg['database']['prefix']}message"
 
         self.db.create_table(tableName, "author_id int, message_id int, guild_id int")
 
         self.db.insert(tableName, (message.author.id, message.id, message.guild.id))
-    
+
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
-        if (not self.cfg["msg"]["bot"]):
+        if not self.cfg["msg"]["bot"]:
             if (message.author.bot):
                 return
-        
+        black = self.cfg["msg"]["blackList"]
+
+        if message.author.id in black["id"]:
+            return
+        for blSt in black["startsWith"]:
+            if message.author.name.startswith(blSt):
+                return
+        if message.author.name in black["in"]:
+            return
+        if message.author.name in black["name"]:
+            return
+
         tableName = f"{self.cfg['database']['prefix']}message"
         self.db.execute(f"DELETE FROM {tableName} WHERE message_id == {message.id}")
 
