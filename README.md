@@ -7,7 +7,7 @@ The number of messages can be obtained and ranked, and special offers can be pro
 
 ## Features
 * [x] Count messages
-* [ ] Ranking
+* [x] Ranking
 * [ ] Rewards
 * [ ] API
 
@@ -17,6 +17,6 @@ Discordの統計ボットです。
 
 ## 機能
 * [x] メッセージをカウント
-* [ ] ランキング
+* [x] ランキング
 * [ ] 特典機能
 * [ ] API
