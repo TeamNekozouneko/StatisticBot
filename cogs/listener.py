@@ -17,20 +17,17 @@ class msgListener(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        if not self.cfg["msg"]["bot"]:
-            if (message.author.bot):
-                return
         black = self.cfg["msg"]["blackList"]
+        # 条件分岐
+        if (not self.cfg["msg"]["bot"]) and (message.author.bot):
+            return
 
-        if message.author.id in black["id"]:
+        if (message.author.id in black["id"]) or (message.author.name in black["in"]) or (message.author.name in black["name"]):
             return
         for blSt in black["startsWith"]:
             if message.author.name.startswith(blSt):
                 return
-        if message.author.name in black["in"]:
-            return
-        if message.author.name in black["name"]:
-            return
+        # データベースに登録
 
         tableName = f"{self.cfg['database']['prefix']}message"
 
@@ -40,20 +37,17 @@ class msgListener(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
-        if not self.cfg["msg"]["bot"]:
-            if (message.author.bot):
-                return
         black = self.cfg["msg"]["blackList"]
+        # 条件分岐
+        if (not self.cfg["msg"]["bot"]) and (message.author.bot):
+            return
 
-        if message.author.id in black["id"]:
+        if (message.author.id in black["id"]) or (message.author.name in black["in"]) or (message.author.name in black["name"]):
             return
         for blSt in black["startsWith"]:
             if message.author.name.startswith(blSt):
                 return
-        if message.author.name in black["in"]:
-            return
-        if message.author.name in black["name"]:
-            return
+        # データベースを編集
 
         tableName = f"{self.cfg['database']['prefix']}message"
         self.db.execute(f"DELETE FROM {tableName} WHERE message_id == {message.id}")
