@@ -28,17 +28,25 @@ class Ranking(commands.Cog):
 
         author_rank = 1
         for r in counts:
-            print(r[0])
             if r[0] == ctx.author.id:
                 break
             author_rank = author_rank+1
         else:
             author_rank="N/A"
+        
+        ran = 1
+        ranksL = []
+        for ranked in counts:
+            if (ran == 11):
+                break
+            ranksL = ranksL + [f"{ran}. <@!{ranked[0]}> ({ranked[1]})"]
+            ran = ran+1
+        
+        rf = '\n'.join(ranksL)
 
-        embed = discord.Embed(title="サーバーランキング", description="あなたは{0}人中{1}位です。".format(ctx.author.guild.member_count, author_rank))
+        embed = discord.Embed(title="サーバーランキング", description=rf)
 
         await ctx.interaction.response.send_message(embed=embed, ephemeral=True)
-        print(f"{c}\n\n{counts}\n\n{author_rank}")
     
 def setup(bot: discord.Bot):
     bot.add_cog(Ranking(bot))
