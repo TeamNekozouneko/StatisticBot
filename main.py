@@ -19,7 +19,7 @@ intent.messages=True
 intent.message_content=True
 intent.guild_messages=True
 
-bot = discord.Bot()
+bot = discord.Bot(intent=intent)
 
 if not os.path.exists("config.json") or args.generate_config:
     if not args.generate_config:
