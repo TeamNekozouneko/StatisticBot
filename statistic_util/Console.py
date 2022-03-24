@@ -30,7 +30,7 @@ class console:
                     log.info("version - Bot version")
                     log.info("status - Bot status")
                 elif cmd == "version" or cmd == "ver":
-                    log.info("StatisticBot 1.0.3")
+                    log.info("StatisticBot 1.0.3-rc3")
                 elif cmd == "status" or cmd == "stats":
                     log.info("Display name: {0} ({1})".format(str(bot.user), bot.user.id))
                     log.info("2FA: {0}".format(bot.user.mfa_enabled))

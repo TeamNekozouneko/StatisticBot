@@ -18,7 +18,7 @@ __copyright__ = "Copyright 2022 TEAM Nekozouneko"
 __license__ = "GNU General Public License v3"
 __repository__ = "https://github.com/TEAMNekozouneko/StatisticBot"
 __title__ = "Statistic Util"
-__version__ = "1.0.3-rc2"
+__version__ = "1.0.3-rc3"
 
 def getVersion():
     return __version__
